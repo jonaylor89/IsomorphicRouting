@@ -1,4 +1,12 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+
+using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace IsomorphicRouting
 {
@@ -18,7 +26,7 @@ namespace IsomorphicRouting
         
             // Loop through the list of routes and add map them into the routing table
             foreach (var r in paths.Children<JObject>().Select((x, i) => new { Value = x, Index = i })) {
-                routesBuilder.MapRoute(
+                routeBuilder.MapRoute(
                     name: $"feRoute${r.Index}",
                     template: (string)r.Value["path"],
                     defaults: new { controller = "Home", action = "Index" },
