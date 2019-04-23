@@ -18,10 +18,10 @@ namespace IsomorphicRouting {
         * mapping the frontend routes will allow for the backend to
         * know when to send a proper 404 error 
         */
-        public static void MapFeRoutes(this IRouteBuilder routeBuilder, string pathToRoutes) {
+        public static void MapFeRoutes(this IRouteBuilder routeBuilder, string pathToFE) {
 
             // Grab path data from JSON
-            JArray paths = JArray.Parse(File.ReadAllText(pathToRoutes));
+            JArray paths = JArray.Parse(File.ReadAllText($"{pathToFE}/paths.json"));
         
             // Loop through the list of routes and add map them into the routing table
             foreach (var r in paths.Children<JObject>().Select((x, i) => new { Value = x, Index = i })) {
